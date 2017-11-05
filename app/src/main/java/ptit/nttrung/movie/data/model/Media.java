@@ -9,168 +9,244 @@ import com.google.gson.annotations.SerializedName;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by TrungNguyen on 11/4/2017.
- */
-
 public class Media implements Parcelable {
-    @SerializedName("vote_count")
-    @Expose
-    private Integer voteCount;
-    @SerializedName("id")
-    @Expose
-    private Integer id;
-    @SerializedName("video")
-    @Expose
-    private Boolean video;
-    @SerializedName("vote_average")
-    @Expose
-    private Float voteAverage;
-    @SerializedName("title")
-    @Expose
-    private String title;
-    @SerializedName("popularity")
-    @Expose
-    private Float popularity;
-    @SerializedName("poster_path")
-    @Expose
-    private String posterPath;
-    @SerializedName("original_language")
-    @Expose
-    private String originalLanguage;
-    @SerializedName("original_title")
-    @Expose
-    private String originalTitle;
-    @SerializedName("genre_ids")
-    @Expose
-    private List<Integer> genreIds = null;
-    @SerializedName("backdrop_path")
-    @Expose
-    private String backdropPath;
+
     @SerializedName("adult")
     @Expose
     private Boolean adult;
+    @SerializedName("backdrop_path")
+    @Expose
+    private String backdropPath;
+    @SerializedName("id")
+    @Expose
+    private Integer id;
+    @SerializedName("original_title")
+    @Expose
+    private String originalTitle;
     @SerializedName("overview")
     @Expose
     private String overview;
     @SerializedName("release_date")
     @Expose
     private String releaseDate;
+    @SerializedName("poster_path")
+    @Expose
+    private String posterPath;
+    @SerializedName("popularity")
+    @Expose
+    private Float popularity;
+    @SerializedName("title")
+    @Expose
+    private String title;
+    @SerializedName("video")
+    @Expose
+    private Boolean video;
+    @SerializedName("vote_average")
+    @Expose
+    private Float voteAverage;
+    @SerializedName("vote_count")
+    @Expose
+    private Integer voteCount;
+    @SerializedName("media_type")
+    @Expose
+    private String mediaType;
+    @SerializedName("profile_path")
+    @Expose
+    private String profilePath;
+    @SerializedName("genre_ids")
+    @Expose
+    private List<Integer> genreIds = new ArrayList<Integer>();
 
-    private String name;
+
     private int backgroundColor;
+    private String name;
 
-    public Integer getVoteCount() {
-        return voteCount;
+    public Media() {
+
     }
 
-    public void setVoteCount(Integer voteCount) {
-        this.voteCount = voteCount;
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public Boolean getVideo() {
-        return video;
-    }
-
-    public void setVideo(Boolean video) {
-        this.video = video;
-    }
-
-    public Float getVoteAverage() {
-        return voteAverage;
-    }
-
-    public void setVoteAverage(Float voteAverage) {
-        this.voteAverage = voteAverage;
-    }
-
-    public Float getPopularity() {
-        return popularity;
-    }
-
-    public void setPopularity(Float popularity) {
-        this.popularity = popularity;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-
-    public String getPosterPath() {
-        return posterPath;
-    }
-
-    public void setPosterPath(String posterPath) {
-        this.posterPath = posterPath;
-    }
-
-    public String getOriginalLanguage() {
-        return originalLanguage;
-    }
-
-    public void setOriginalLanguage(String originalLanguage) {
-        this.originalLanguage = originalLanguage;
-    }
-
-    public String getOriginalTitle() {
-        return originalTitle;
-    }
-
-    public void setOriginalTitle(String originalTitle) {
-        this.originalTitle = originalTitle;
-    }
-
-    public List<Integer> getGenreIds() {
-        return genreIds;
-    }
-
-    public void setGenreIds(List<Integer> genreIds) {
-        this.genreIds = genreIds;
-    }
-
-    public String getBackdropPath() {
-        return backdropPath;
-    }
-
-    public void setBackdropPath(String backdropPath) {
-        this.backdropPath = backdropPath;
-    }
-
+    /**
+     * @return The adult
+     */
     public Boolean getAdult() {
         return adult;
     }
 
+    /**
+     * @param adult The adult
+     */
     public void setAdult(Boolean adult) {
         this.adult = adult;
     }
 
+    /**
+     * @return The backdropPath
+     */
+    public String getBackdropPath() {
+        return backdropPath;
+    }
+
+    /**
+     * @param backdropPath The backdrop_path
+     */
+    public void setBackdropPath(String backdropPath) {
+        this.backdropPath = backdropPath;
+    }
+
+    /**
+     * @return The id
+     */
+    public Integer getId() {
+        return id;
+    }
+
+    /**
+     * @param id The id
+     */
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    /**
+     * @return The originalTitle
+     */
+    public String getOriginalTitle() {
+        return originalTitle;
+    }
+
+    /**
+     * @param originalTitle The original_title
+     */
+    public void setOriginalTitle(String originalTitle) {
+        this.originalTitle = originalTitle;
+    }
+
+    /**
+     * @return The overview
+     */
     public String getOverview() {
         return overview;
     }
 
+    /**
+     * @param overview The overview
+     */
     public void setOverview(String overview) {
         this.overview = overview;
     }
 
+    /**
+     * @return The releaseDate
+     */
     public String getReleaseDate() {
         return releaseDate;
     }
 
+    /**
+     * @param releaseDate The release_date
+     */
     public void setReleaseDate(String releaseDate) {
         this.releaseDate = releaseDate;
+    }
+
+    /**
+     * @return The posterPath
+     */
+    public String getPosterPath() {
+        return posterPath;
+    }
+
+    /**
+     * @param posterPath The poster_path
+     */
+    public void setPosterPath(String posterPath) {
+        this.posterPath = posterPath;
+    }
+
+    /**
+     * @return The popularity
+     */
+    public Float getPopularity() {
+        return popularity;
+    }
+
+    /**
+     * @param popularity The popularity
+     */
+    public void setPopularity(Float popularity) {
+        this.popularity = popularity;
+    }
+
+    /**
+     * @return The title
+     */
+    public String getTitle() {
+        return title;
+    }
+
+    /**
+     * @param title The title
+     */
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    /**
+     * @return The video
+     */
+    public Boolean getVideo() {
+        return video;
+    }
+
+    /**
+     * @param video The video
+     */
+    public void setVideo(Boolean video) {
+        this.video = video;
+    }
+
+    /**
+     * @return The voteAverage
+     */
+    public Float getVoteAverage() {
+        return voteAverage;
+    }
+
+    /**
+     * @param voteAverage The vote_average
+     */
+    public void setVoteAverage(Float voteAverage) {
+        this.voteAverage = voteAverage;
+    }
+
+    /**
+     * @return The voteCount
+     */
+    public Integer getVoteCount() {
+        return voteCount;
+    }
+
+    /**
+     * @param voteCount The vote_count
+     */
+    public void setVoteCount(Integer voteCount) {
+        this.voteCount = voteCount;
+    }
+
+    public int getBackgroundColor() {
+        return backgroundColor;
+    }
+
+    public void setBackgroundColor(int backgroundColor) {
+        this.backgroundColor = backgroundColor;
+    }
+
+    public String getMediaType() {
+        return mediaType;
+    }
+
+    public void setMediaType(String mediaType) {
+        this.mediaType = mediaType;
     }
 
     public String getName() {
@@ -181,12 +257,20 @@ public class Media implements Parcelable {
         this.name = name;
     }
 
-    public int getBackgroundColor() {
-        return backgroundColor;
+    public String getProfilePath() {
+        return profilePath;
     }
 
-    public void setBackgroundColor(int backgroundColor) {
-        this.backgroundColor = backgroundColor;
+    public void setProfilePath(String profilePath) {
+        this.profilePath = profilePath;
+    }
+
+    public List<Integer> getGenreIds() {
+        return genreIds;
+    }
+
+    public void setGenreIds(List<Integer> genreIds) {
+        this.genreIds = genreIds;
     }
 
     @Override
@@ -222,8 +306,9 @@ public class Media implements Parcelable {
         video = videoVal == 0x02 ? null : videoVal != 0x00;
         voteAverage = in.readByte() == 0x00 ? null : in.readFloat();
         voteCount = in.readByte() == 0x00 ? null : in.readInt();
-
+        mediaType = in.readString();
         name = in.readString();
+        profilePath = in.readString();
         if (in.readByte() == 0x01) {
             genreIds = new ArrayList<Integer>();
             in.readList(genreIds, Integer.class.getClassLoader());
@@ -280,9 +365,9 @@ public class Media implements Parcelable {
             dest.writeByte((byte) (0x01));
             dest.writeInt(voteCount);
         }
-
+        dest.writeString(mediaType);
         dest.writeString(name);
-
+        dest.writeString(profilePath);
         if (genreIds == null) {
             dest.writeByte((byte) (0x00));
         } else {
@@ -292,10 +377,11 @@ public class Media implements Parcelable {
         dest.writeInt(backgroundColor);
     }
 
+    @SuppressWarnings("unused")
     public static final Parcelable.Creator<Media> CREATOR = new Parcelable.Creator<Media>() {
         @Override
-        public Media createFromParcel(Parcel source) {
-            return new Media(source);
+        public Media createFromParcel(Parcel in) {
+            return new Media(in);
         }
 
         @Override

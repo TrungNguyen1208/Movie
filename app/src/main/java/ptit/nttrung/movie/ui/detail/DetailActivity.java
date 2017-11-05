@@ -30,6 +30,7 @@ import ptit.nttrung.movie.data.model.DetailResponse;
 import ptit.nttrung.movie.data.model.GenreManager;
 import ptit.nttrung.movie.data.model.Media;
 import ptit.nttrung.movie.data.remote.ApiUtils;
+import ptit.nttrung.movie.ui.castlist.CastListActivity;
 import ptit.nttrung.movie.util.DateUtil;
 import ptit.nttrung.movie.util.GlideUtil;
 import ptit.nttrung.movie.util.UrlBuilder;
@@ -58,7 +59,7 @@ public class DetailActivity extends AppCompatActivity implements DetailView {
     public static void navigate(Activity context, View view, Media media) {
         Intent intent = new Intent(context, DetailActivity.class);
         intent.putExtra("media", media);
-        ImageView coverStartView = (ImageView) view.findViewById(R.id.poster);
+        ImageView coverStartView = view.findViewById(R.id.poster);
         if (coverStartView.getDrawable() == null) {
             context.startActivity(intent);
             return;
@@ -88,7 +89,7 @@ public class DetailActivity extends AppCompatActivity implements DetailView {
         backdrop = (ImageView) findViewById(R.id.backdrop);
         poster = (ImageView) findViewById(R.id.poster);
         collapsingToolbarLayout = (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar);
-        container = (View) findViewById(R.id.layout_info);
+        container = findViewById(R.id.layout_info);
         appBarLayout = (AppBarLayout) findViewById(R.id.app_bar_layout);
 
         title = (TextView) findViewById(R.id.title);
@@ -97,6 +98,18 @@ public class DetailActivity extends AppCompatActivity implements DetailView {
         rating = (TextView) findViewById(R.id.rating);
         castRecyclerView = (RecyclerView) findViewById(R.id.cast_recycler_view);
         genreRecyclerView = (RecyclerView) findViewById(R.id.genre_recycler_view);
+
+        findViewById(R.id.view_all_cast).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (!casts.isEmpty()) {
+                    Intent intent = new Intent(DetailActivity.this, CastListActivity.class);
+                    intent.putParcelableArrayListExtra("cast", (ArrayList<DetailResponse.Cast>) casts);
+                    startActivity(intent);
+                    overridePendingTransition(R.anim.slide_up, R.anim.no_change);
+                }
+            }
+        });
     }
 
     private void loadInfoMedia() {
@@ -118,6 +131,7 @@ public class DetailActivity extends AppCompatActivity implements DetailView {
         rating.setText(media.getVoteAverage() + " from " + media.getVoteCount() + " votes");
 
         initAdapter();
+
         presenter.setMovieId(media.getId());
         presenter.loadCast();
         presenter.loadGenres(media.getGenreIds());

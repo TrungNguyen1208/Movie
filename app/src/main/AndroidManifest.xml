@@ -23,6 +23,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".ui.detail.DetailActivity"/>
+        <activity android:name=".ui.castlist.CastListActivity" />
+        <activity android:name=".ui.search.SearchActivity" />
     </application>
 
 </manifest>
