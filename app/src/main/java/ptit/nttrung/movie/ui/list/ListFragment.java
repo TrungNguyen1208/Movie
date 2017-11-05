@@ -1,10 +1,12 @@
 package ptit.nttrung.movie.ui.list;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,8 +17,8 @@ import java.util.List;
 
 import ptit.nttrung.movie.R;
 import ptit.nttrung.movie.data.model.Media;
-import ptit.nttrung.movie.data.remote.Api;
 import ptit.nttrung.movie.data.remote.ApiUtils;
+import ptit.nttrung.movie.ui.detail.DetailActivity;
 import ptit.nttrung.movie.util.cache.ResponseCache;
 
 /**
@@ -49,8 +51,7 @@ public class ListFragment extends Fragment implements SwipeRefreshLayout.OnRefre
             e.printStackTrace();
         }
 
-        Api client = ApiUtils.getApi();
-        presenter = new MovieListPresenter(responseCache, client);
+        presenter = new MovieListPresenter(responseCache, ApiUtils.getApi());
 
         presenter.attachView(this);
         adapter = new MovieListAdapter(movies);
@@ -100,13 +101,14 @@ public class ListFragment extends Fragment implements SwipeRefreshLayout.OnRefre
 
     @Override
     public void onMovieClicked(Media media, View view) {
-//        if (media.getPosterPath() != null)
-//            DetailActivity.navigate(getActivity(), view, media);
-//        else {
-//            Intent intent = new Intent(getActivity(), DetailActivity.class);
-//            intent.putExtra("media", media);
-//            startActivity(intent);
-//        }
+        Log.e("posted path", media.getPosterPath());
+        if (media.getPosterPath() != null)
+            DetailActivity.navigate(getActivity(), view, media);
+        else {
+            Intent intent = new Intent(getActivity(), DetailActivity.class);
+            intent.putExtra("media", media);
+            startActivity(intent);
+        }
     }
 
     @Override

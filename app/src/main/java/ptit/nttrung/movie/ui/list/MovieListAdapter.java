@@ -1,6 +1,7 @@
 package ptit.nttrung.movie.ui.list;
 
 import android.graphics.Bitmap;
+import android.os.Handler;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.graphics.Palette;
 import android.support.v7.widget.RecyclerView;
@@ -60,6 +61,18 @@ public class MovieListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 //            RxView.clicks(viewHolder.itemView).throttleFirst(500, TimeUnit.MILLISECONDS).subscribe(aVoid -> {
 //                onMovieClickListener.onMovieClicked(media, viewHolder.itemView);
 //            });
+
+            viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    new Handler().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            onMovieClickListener.onMovieClicked(media, viewHolder.itemView);
+                        }
+                    }, 200);
+                }
+            });
 
             viewHolder.title.setText(media.getTitle());
             viewHolder.year.setText(media.getReleaseDate().split("-")[0]);
