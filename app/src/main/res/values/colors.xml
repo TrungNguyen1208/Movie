@@ -7,7 +7,6 @@
     <color name="colorAccentPressed">#20915f</color>
     <color name="materialWhiteText">#B3FFFFFF</color>
     <color name="materialDarkText">#B3000000</color>
-    <color name="blackTransparent">#8C000000</color>
 
     <color name="gray100">#F5F5F5</color>
     <color name="gray300">#E0E0E0</color>
@@ -16,5 +15,4 @@
 
     <color name="btn_context_menu_normal">#ffffff</color>
     <color name="btn_context_menu_pressed">#40000000</color>
-    <color name="btn_context_menu_text_red">#ffff0000</color>
 </resources>

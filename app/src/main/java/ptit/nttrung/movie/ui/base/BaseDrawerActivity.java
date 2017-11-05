@@ -63,7 +63,7 @@ public abstract class BaseDrawerActivity extends BaseActivity {
 
     private void setupHeader() {
         View headerView = vNavigation.getHeaderView(0);
-        ivMenuUserProfilePhoto = (ImageView) headerView.findViewById(R.id.ivMenuUserProfilePhoto);
+        ivMenuUserProfilePhoto = headerView.findViewById(R.id.ivMenuUserProfilePhoto);
         headerView.findViewById(R.id.vGlobalMenuHeader).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
