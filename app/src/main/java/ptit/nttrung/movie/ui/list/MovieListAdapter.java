@@ -4,6 +4,7 @@ import android.graphics.Bitmap;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.graphics.Palette;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -64,6 +65,9 @@ public class MovieListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
             viewHolder.year.setText(media.getReleaseDate().split("-")[0]);
             Glide.clear(viewHolder.poster);
             holder.itemView.setBackgroundColor(ContextCompat.getColor(viewHolder.poster.getContext(), R.color.colorPrimary));
+
+            Log.e("media ", media.getPosterPath());
+            Log.e("media ", UrlBuilder.getPosterUrl(media.getPosterPath()));
 
             Glide.with(viewHolder.poster.getContext())
                     .load(UrlBuilder.getPosterUrl(media.getPosterPath()))

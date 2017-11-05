@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 
 import ptit.nttrung.movie.R;
 
@@ -70,6 +71,8 @@ public abstract class BaseDrawerActivity extends BaseActivity {
         Glide.with(this)
                 .load(profilePhoto)
                 .placeholder(R.drawable.img_circle_placeholder)
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .dontAnimate()
                 .centerCrop()
                 .into(ivMenuUserProfilePhoto);
     }

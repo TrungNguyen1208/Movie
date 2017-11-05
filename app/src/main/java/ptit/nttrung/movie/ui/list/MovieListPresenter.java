@@ -23,8 +23,6 @@ public class MovieListPresenter extends Presenter<MovieListView> {
     private ResponseCache cache;
     private Api client;
 
-    private static final String API_KEY = "27c669d719af09d66f0b116ee766a3b7";
-
     public MovieListPresenter(ResponseCache responseCache, Api api) {
         subscription = new CompositeSubscription();
         cache = responseCache;
@@ -62,7 +60,12 @@ public class MovieListPresenter extends Presenter<MovieListView> {
         };
 
         subscription.add((allowCache ? Observable.concat(getCacheObservable(), getMovieObservable()) : getMovieObservable())
-                .filter(list -> list != null && list.size() > 0)
+                .filter(new Func1<List<Media>, Boolean>() {
+                    @Override
+                    public Boolean call(List<Media> list) {
+                        return list != null && list.size() > 0;
+                    }
+                })
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(subscriber));
@@ -72,8 +75,7 @@ public class MovieListPresenter extends Presenter<MovieListView> {
         return Observable.defer(new Func0<Observable<List<Media>>>() {
             @Override
             public Observable<List<Media>> call() {
-                return client
-                        .getNowPlayingMovies(BuildConfig.API_KEY)
+                return client.getNowPlayingMovies(BuildConfig.API_KEY)
                         .flatMap(new Func1<Response, Observable<? extends List<Media>>>() {
                             @Override
                             public Observable<? extends List<Media>> call(Response response) {
