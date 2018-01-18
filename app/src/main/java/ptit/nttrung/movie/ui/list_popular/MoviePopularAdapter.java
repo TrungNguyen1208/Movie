@@ -1,4 +1,4 @@
-package ptit.nttrung.movie.ui.list;
+package ptit.nttrung.movie.ui.list_popular;
 
 import android.graphics.Bitmap;
 import android.os.Handler;
@@ -25,16 +25,19 @@ import ptit.nttrung.movie.data.model.Media;
 import ptit.nttrung.movie.util.UrlBuilder;
 
 /**
- * Created by TrungNguyen on 11/4/2017.
+ * Created by TrungNguyen on 1/18/2018.
  */
 
-public class MovieListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class MoviePopularAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+
     private static final int VIEW_ITEM = 1;
+    private static final int VIEW_PROG = 0;
+
     private List<Media> list;
     private OnMovieClickListener onMovieClickListener;
 
-    public MovieListAdapter(List<Media> movies) {
-        this.list = movies;
+    public MoviePopularAdapter(List<Media> list) {
+        this.list = list;
     }
 
     public void setOnMovieClickListener(OnMovieClickListener listener) {
@@ -46,6 +49,7 @@ public class MovieListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
         return VIEW_ITEM;
     }
 
+
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         return new MovieViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.item_list_movie, parent, false));
@@ -56,10 +60,6 @@ public class MovieListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
         if (holder instanceof MovieViewHolder) {
             MovieViewHolder viewHolder = (MovieViewHolder) holder;
             Media media = list.get(position);
-
-//            RxView.clicks(viewHolder.itemView).throttleFirst(500, TimeUnit.MILLISECONDS).subscribe(aVoid -> {
-//                onMovieClickListener.onMovieClicked(media, viewHolder.itemView);
-//            });
 
             viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -101,6 +101,8 @@ public class MovieListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                     })
                     .into(viewHolder.poster);
         }
+
+
     }
 
     @Override
@@ -113,10 +115,10 @@ public class MovieListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
         TextView title;
         TextView year;
 
-        MovieViewHolder(View itemView) {
+        public MovieViewHolder(View itemView) {
             super(itemView);
             title = (TextView) itemView.findViewById(R.id.tv_title);
-            year= (TextView) itemView.findViewById(R.id.year);
+            year = (TextView) itemView.findViewById(R.id.year);
             poster = (ImageView) itemView.findViewById(R.id.poster);
         }
     }

@@ -1,4 +1,4 @@
-package ptit.nttrung.movie.ui.list;
+package ptit.nttrung.movie.ui.list_popular;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -8,17 +8,18 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
 import android.view.Gravity;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.Toast;
 
 import ptit.nttrung.movie.R;
 import ptit.nttrung.movie.ui.base.BaseDrawerActivity;
-import ptit.nttrung.movie.ui.list_popular.ListPopularActivity;
-import ptit.nttrung.movie.ui.search.SearchActivity;
+import ptit.nttrung.movie.ui.list.MainActivity;
 
-public class MainActivity extends BaseDrawerActivity {
+/**
+ * Created by TrungNguyen on 1/18/2018.
+ */
+
+public class ListPopularActivity extends BaseDrawerActivity {
 
     AppBarLayout appBarLayout;
 
@@ -29,7 +30,7 @@ public class MainActivity extends BaseDrawerActivity {
 
         appBarLayout = (AppBarLayout) findViewById(R.id.app_bar_layout);
 
-        ListFragment fragment = new ListFragment();
+        ListPopularFragment fragment = new ListPopularFragment();
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.container, fragment);
@@ -39,7 +40,7 @@ public class MainActivity extends BaseDrawerActivity {
     @Override
     protected void setupToolbar() {
         super.setupToolbar();
-        getSupportActionBar().setTitle("Movie");
+        getSupportActionBar().setTitle("Movie Popular");
     }
 
     @Override
@@ -53,14 +54,13 @@ public class MainActivity extends BaseDrawerActivity {
             public boolean onNavigationItemSelected(MenuItem menuItem) {
                 switch (menuItem.getItemId()) {
                     case R.id.menu_news:
+                        startActivity(new Intent(ListPopularActivity.this, MainActivity.class));
+                        ListPopularActivity.this.finish();
+                    case R.id.menu_popular:
                         drawerLayout.closeDrawer(Gravity.LEFT, true);
                         break;
-                    case R.id.menu_popular:
-                        startActivity(new Intent(MainActivity.this, ListPopularActivity.class));
-                        MainActivity.this.finish();
-                        break;
                     case R.id.menu_like:
-                        Toast.makeText(MainActivity.this, "Update later", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(ListPopularActivity.this, "Update later", Toast.LENGTH_SHORT).show();
                         break;
                     default:
                         break;
@@ -76,22 +76,6 @@ public class MainActivity extends BaseDrawerActivity {
                 return true;
             }
         });
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.menu_main, menu);
-        return super.onCreateOptionsMenu(menu);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.search:
-                startActivity(new Intent(this, SearchActivity.class));
-        }
-        return super.onOptionsItemSelected(item);
     }
 
     @Override

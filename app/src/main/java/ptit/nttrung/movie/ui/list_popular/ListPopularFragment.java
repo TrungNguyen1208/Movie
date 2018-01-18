@@ -1,4 +1,4 @@
-package ptit.nttrung.movie.ui.list;
+package ptit.nttrung.movie.ui.list_popular;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -6,6 +6,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,22 +19,24 @@ import ptit.nttrung.movie.R;
 import ptit.nttrung.movie.data.model.Media;
 import ptit.nttrung.movie.data.remote.ApiUtils;
 import ptit.nttrung.movie.ui.detail.DetailActivity;
+import ptit.nttrung.movie.util.EndlessRecyclerViewScrollListener;
 import ptit.nttrung.movie.util.cache.ResponseCache;
 
 /**
- * A placeholder fragment containing a simple view.
+ * Created by TrungNguyen on 1/18/2018.
  */
-public class ListFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener, MovieListView, MovieListAdapter.OnMovieClickListener{
 
-    SwipeRefreshLayout swipeRefreshLayout;
-    RecyclerView recyclerView;
+public class ListPopularFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener, PopularView, MoviePopularAdapter.OnMovieClickListener {
 
-    private MovieListPresenter presenter;
-    private MovieListAdapter adapter;
+    private SwipeRefreshLayout swipeRefreshLayout;
+    private RecyclerView recyclerView;
+
+    private MoviePopularAdapter adapter;
+    private PopularPresenter presenter;
     private List<Media> movies = new ArrayList<>();
     private ResponseCache responseCache;
 
-    public ListFragment() {
+    public ListPopularFragment() {
     }
 
     @Override
@@ -50,25 +53,35 @@ public class ListFragment extends Fragment implements SwipeRefreshLayout.OnRefre
             e.printStackTrace();
         }
 
-        presenter = new MovieListPresenter(responseCache, ApiUtils.getApi());
+        presenter = new PopularPresenter(responseCache, ApiUtils.getApi());
         presenter.attachView(this);
-        adapter = new MovieListAdapter(movies);
+        adapter = new MoviePopularAdapter(movies);
         adapter.setOnMovieClickListener(this);
 
-        StaggeredGridLayoutManager staggeredGridLayoutManager =
-                new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
+        StaggeredGridLayoutManager staggeredGridLayoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(staggeredGridLayoutManager);
-
         recyclerView.setAdapter(adapter);
+
+        EndlessRecyclerViewScrollListener scrollListener = new EndlessRecyclerViewScrollListener(staggeredGridLayoutManager) {
+            @Override
+            public void onLoadMore(int page, int totalItemsCount, RecyclerView view) {
+                page = page + 1;
+                Log.e("TAG", "page: " + page);
+                presenter.loadMoreMovies(page);
+            }
+        };
+        recyclerView.addOnScrollListener(scrollListener);
         swipeRefreshLayout.setOnRefreshListener(this);
 
         showProgress(true);
+
         return view;
     }
 
+
     @Override
     public void onRefresh() {
-        presenter.loadMovies(false);
+        presenter.loadMovies(1);
     }
 
     @Override
@@ -78,7 +91,7 @@ public class ListFragment extends Fragment implements SwipeRefreshLayout.OnRefre
                 @Override
                 public void run() {
                     swipeRefreshLayout.setRefreshing(true);
-                    presenter.loadMovies(true);
+                    presenter.loadMovies(1);
                 }
             });
         } else
@@ -90,6 +103,18 @@ public class ListFragment extends Fragment implements SwipeRefreshLayout.OnRefre
         movies.clear();
         movies.addAll(list);
         adapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void showMoreMovies(List<Media> list) {
+        int curSize = adapter.getItemCount();
+        movies.addAll(list);
+        recyclerView.post(new Runnable() {
+            @Override
+            public void run() {
+                adapter.notifyItemRangeInserted(curSize, movies.size() - 1);
+            }
+        });
     }
 
     @Override

@@ -64,6 +64,7 @@ public class DetailActivity extends AppCompatActivity implements DetailView {
             context.startActivity(intent);
             return;
         }
+
         ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(context, coverStartView, "poster");
         ActivityCompat.startActivity(context, intent, options.toBundle());
     }
