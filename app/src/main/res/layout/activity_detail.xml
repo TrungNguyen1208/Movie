@@ -37,6 +37,14 @@
                 app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
                 app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar" />
 
+            <ImageView
+                android:id="@+id/poster"
+                android:layout_width="70dp"
+                android:layout_height="102dp"
+                android:layout_margin="8dp"
+                android:scaleType="centerCrop"
+                android:transitionName="poster" />
+
         </android.support.design.widget.CollapsingToolbarLayout>
 
         <FrameLayout
@@ -89,13 +97,6 @@
                     android:textColor="@color/materialWhiteText" />
             </LinearLayout>
 
-            <ImageView
-                android:id="@+id/poster"
-                android:layout_width="70dp"
-                android:layout_height="102dp"
-                android:layout_margin="8dp"
-                android:scaleType="centerCrop"
-                android:transitionName="poster" />
         </FrameLayout>
     </android.support.design.widget.AppBarLayout>
 

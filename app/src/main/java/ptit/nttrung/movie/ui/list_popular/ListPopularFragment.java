@@ -10,6 +10,9 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
+
+import com.paginate.recycler.LoadingListItemCreator;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -19,7 +22,7 @@ import ptit.nttrung.movie.R;
 import ptit.nttrung.movie.data.model.Media;
 import ptit.nttrung.movie.data.remote.ApiUtils;
 import ptit.nttrung.movie.ui.detail.DetailActivity;
-import ptit.nttrung.movie.util.EndlessRecyclerViewScrollListener;
+import ptit.nttrung.movie.ui.widget.EndlessRecyclerViewScrollListener;
 import ptit.nttrung.movie.util.cache.ResponseCache;
 
 /**
@@ -58,7 +61,8 @@ public class ListPopularFragment extends Fragment implements SwipeRefreshLayout.
         adapter = new MoviePopularAdapter(movies);
         adapter.setOnMovieClickListener(this);
 
-        StaggeredGridLayoutManager staggeredGridLayoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
+        StaggeredGridLayoutManager staggeredGridLayoutManager =
+                new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(staggeredGridLayoutManager);
         recyclerView.setAdapter(adapter);
 
@@ -71,7 +75,13 @@ public class ListPopularFragment extends Fragment implements SwipeRefreshLayout.
             }
         };
         recyclerView.addOnScrollListener(scrollListener);
-        swipeRefreshLayout.setOnRefreshListener(this);
+
+//        paginate = Paginate.with(recyclerView, this)
+//                .setLoadingTriggerThreshold(4)
+//                .addLoadingListItem(true)
+//                .setLoadingListItemCreator(false? new CustomLoadingListItemCreator() : null)
+//                .build();
+//        swipeRefreshLayout.setOnRefreshListener(this);
 
         showProgress(true);
 
@@ -137,5 +147,35 @@ public class ListPopularFragment extends Fragment implements SwipeRefreshLayout.
     public void onDestroyView() {
         super.onDestroyView();
         presenter.detachView();
+    }
+
+    private class CustomLoadingListItemCreator implements LoadingListItemCreator {
+        @Override
+        public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+            LayoutInflater inflater = LayoutInflater.from(parent.getContext());
+            View view = inflater.inflate(R.layout.custom_loading_list_item, parent, false);
+            return new VH(view);
+        }
+
+        @Override
+        public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+            VH vh = (VH) holder;
+            vh.tvLoading.setText(String.format("Total items loaded: %d.\nLoading more...", adapter.getItemCount()));
+
+            // This is how you can make full span if you are using StaggeredGridLayoutManager
+            if (recyclerView.getLayoutManager() instanceof StaggeredGridLayoutManager) {
+                StaggeredGridLayoutManager.LayoutParams params = (StaggeredGridLayoutManager.LayoutParams) vh.itemView.getLayoutParams();
+                params.setFullSpan(true);
+            }
+        }
+    }
+
+    static class VH extends RecyclerView.ViewHolder {
+        TextView tvLoading;
+
+        public VH(View itemView) {
+            super(itemView);
+            tvLoading = (TextView) itemView.findViewById(R.id.tv_loading_text);
+        }
     }
 }

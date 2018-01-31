@@ -55,8 +55,7 @@ public class ListFragment extends Fragment implements SwipeRefreshLayout.OnRefre
         adapter = new MovieListAdapter(movies);
         adapter.setOnMovieClickListener(this);
 
-        StaggeredGridLayoutManager staggeredGridLayoutManager =
-                new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
+        StaggeredGridLayoutManager staggeredGridLayoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(staggeredGridLayoutManager);
 
         recyclerView.setAdapter(adapter);

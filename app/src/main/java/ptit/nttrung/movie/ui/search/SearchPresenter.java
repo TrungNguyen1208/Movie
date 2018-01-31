@@ -39,7 +39,12 @@ public class SearchPresenter extends Presenter<SearchView> {
                         return Observable.from(response.getResults());
                     }
                 })
-                .filter(media -> media != null && !media.getMediaType().equals("tv"))
+                .filter(new Func1<Media, Boolean>() {
+                    @Override
+                    public Boolean call(Media media) {
+                        return media != null && !media.getMediaType().equals("tv");
+                    }
+                })
                 .toList()
                 .flatMap(new Func1<List<Media>, Observable<? extends List<Object>>>() {
                     @Override
@@ -100,7 +105,12 @@ public class SearchPresenter extends Presenter<SearchView> {
     private Observable<List<Media>> extractSearchResult(List<Media> list, String type) {
         return Observable
                 .from(list)
-                .filter(media -> media.getMediaType().equals(type))
+                .filter(new Func1<Media, Boolean>() {
+                    @Override
+                    public Boolean call(Media media) {
+                        return media.getMediaType().equals(type);
+                    }
+                })
                 .toList();
     }
 

@@ -15,16 +15,18 @@
             android:name=".ui.list.MainActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar">
+
+        </activity>
+        <activity android:name=".ui.detail.DetailActivity" />
+        <activity android:name=".ui.castlist.CastListActivity" />
+        <activity android:name=".ui.search.SearchActivity" />
+        <activity android:name=".ui.list_popular.ListPopularActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ui.detail.DetailActivity"/>
-        <activity android:name=".ui.castlist.CastListActivity" />
-        <activity android:name=".ui.search.SearchActivity" />
-        <activity android:name=".ui.list_popular.ListPopularActivity" />
     </application>
 
 </manifest>
