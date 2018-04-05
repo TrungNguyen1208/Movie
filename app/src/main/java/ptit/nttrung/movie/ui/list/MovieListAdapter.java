@@ -108,6 +108,12 @@ public class MovieListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
         return list.size();
     }
 
+    public void add(List<Media> items) {
+        int previousDataSize = this.list.size();
+        this.list.addAll(items);
+        notifyItemRangeInserted(previousDataSize, items.size());
+    }
+
     public static class MovieViewHolder extends RecyclerView.ViewHolder {
         ImageView poster;
         TextView title;
@@ -116,12 +122,12 @@ public class MovieListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
         MovieViewHolder(View itemView) {
             super(itemView);
             title = (TextView) itemView.findViewById(R.id.tv_title);
-            year= (TextView) itemView.findViewById(R.id.year);
+            year = (TextView) itemView.findViewById(R.id.year);
             poster = (ImageView) itemView.findViewById(R.id.poster);
         }
     }
 
-    interface OnMovieClickListener {
+    public interface OnMovieClickListener {
         void onMovieClicked(Media media, View view);
     }
 }

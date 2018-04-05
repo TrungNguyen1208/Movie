@@ -77,10 +77,4 @@ public class ListPopularActivity extends BaseDrawerActivity {
             }
         });
     }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        appBarLayout.setExpanded(false, true);
-    }
 }

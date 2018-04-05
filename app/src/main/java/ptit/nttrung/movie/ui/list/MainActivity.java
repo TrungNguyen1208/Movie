@@ -93,10 +93,4 @@ public class MainActivity extends BaseDrawerActivity {
         }
         return super.onOptionsItemSelected(item);
     }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        appBarLayout.setExpanded(false, true);
-    }
 }
