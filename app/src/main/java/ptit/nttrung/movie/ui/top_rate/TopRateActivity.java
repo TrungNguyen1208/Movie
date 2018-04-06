@@ -1,4 +1,4 @@
-package ptit.nttrung.movie.ui.list;
+package ptit.nttrung.movie.ui.top_rate;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -8,17 +8,18 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
 import android.view.Gravity;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 
 import ptit.nttrung.movie.R;
 import ptit.nttrung.movie.ui.base.BaseDrawerActivity;
-import ptit.nttrung.movie.ui.list_popular.ListPopularActivity;
-import ptit.nttrung.movie.ui.search.SearchActivity;
-import ptit.nttrung.movie.ui.top_rate.TopRateActivity;
+import ptit.nttrung.movie.ui.list.MainActivity;
+import ptit.nttrung.movie.ui.list_popular.ListPopularFragment;
 
-public class MainActivity extends BaseDrawerActivity {
+/**
+ * Created by TrungNguyen on 4/6/2018.
+ */
+
+public class TopRateActivity extends BaseDrawerActivity {
 
     AppBarLayout appBarLayout;
 
@@ -29,7 +30,7 @@ public class MainActivity extends BaseDrawerActivity {
 
         appBarLayout = (AppBarLayout) findViewById(R.id.app_bar_layout);
 
-        ListFragment fragment = new ListFragment();
+        TopRateFragment fragment = TopRateFragment.newInstance();
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.container, fragment);
@@ -39,8 +40,9 @@ public class MainActivity extends BaseDrawerActivity {
     @Override
     protected void setupToolbar() {
         super.setupToolbar();
-        getSupportActionBar().setTitle("Movie");
+        getSupportActionBar().setTitle("Top Rate");
     }
+
 
     @Override
     public void setNavigationItemSelected() {
@@ -53,15 +55,14 @@ public class MainActivity extends BaseDrawerActivity {
             public boolean onNavigationItemSelected(MenuItem menuItem) {
                 switch (menuItem.getItemId()) {
                     case R.id.menu_news:
-                        drawerLayout.closeDrawer(Gravity.LEFT, true);
-                        break;
+                        startActivity(new Intent(TopRateActivity.this, MainActivity.class));
+                        TopRateActivity.this.finish();
                     case R.id.menu_popular:
-                        startActivity(new Intent(MainActivity.this, ListPopularActivity.class));
-                        MainActivity.this.finish();
+                        startActivity(new Intent(TopRateActivity.this, ListPopularFragment.class));
+                        TopRateActivity.this.finish();
                         break;
                     case R.id.menu_like:
-                        startActivity(new Intent(MainActivity.this, TopRateActivity.class));
-                        MainActivity.this.finish();
+                        drawerLayout.closeDrawer(Gravity.LEFT, true);
                         break;
                     default:
                         break;
@@ -77,21 +78,5 @@ public class MainActivity extends BaseDrawerActivity {
                 return true;
             }
         });
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.menu_main, menu);
-        return super.onCreateOptionsMenu(menu);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.search:
-                startActivity(new Intent(this, SearchActivity.class));
-        }
-        return super.onOptionsItemSelected(item);
     }
 }

@@ -13,7 +13,7 @@
         <item
             android:id="@+id/menu_like"
             android:icon="@drawable/ic_global_menu_likes"
-            android:title="Film You've Liked" />
+            android:title="Top Rate" />
     </group>
 
     <group>

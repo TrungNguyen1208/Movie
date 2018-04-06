@@ -20,7 +20,7 @@ import ptit.nttrung.movie.data.model.Media;
 import ptit.nttrung.movie.data.remote.ApiUtils;
 import ptit.nttrung.movie.ui.detail.DetailActivity;
 import ptit.nttrung.movie.ui.list.MovieListAdapter;
-import ptit.nttrung.movie.ui.widget.EndlessRecyclerViewScrollListener;
+import ptit.nttrung.movie.util.EndlessRecyclerViewScrollListener;
 import ptit.nttrung.movie.util.cache.ResponseCache;
 
 /**
@@ -41,8 +41,10 @@ public class ListPopularFragment extends Fragment implements SwipeRefreshLayout.
     private EndlessRecyclerViewScrollListener scrollListener;
 
     private boolean loading;
-
     private int currentPage = 0;
+
+    private boolean isLoading = false;
+    private boolean isLastPage = false;
 
     public ListPopularFragment() {
     }
@@ -88,6 +90,7 @@ public class ListPopularFragment extends Fragment implements SwipeRefreshLayout.
     @Override
     public void onRefresh() {
         currentPage = 0;
+        scrollListener.resetState();
         presenter.loadMovies(++currentPage);
     }
 
@@ -141,6 +144,7 @@ public class ListPopularFragment extends Fragment implements SwipeRefreshLayout.
     @Override
     public void onDestroyView() {
         super.onDestroyView();
+        scrollListener.resetState();
         presenter.detachView();
     }
 }

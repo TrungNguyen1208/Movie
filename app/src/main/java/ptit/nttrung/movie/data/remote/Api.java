@@ -29,4 +29,9 @@ public interface Api {
 
     @GET("search/multi")
     Observable<Response> search(@Query("api_key") String apiKey, @Query("query") String query);
+
+    @GET("movie/top_rated")
+    Observable<Response> getTopRatedMovies(@Query("api_key") String apiKey,
+                                           @Query("language") String language,
+                                           @Query("page") int pageIndex);
 }

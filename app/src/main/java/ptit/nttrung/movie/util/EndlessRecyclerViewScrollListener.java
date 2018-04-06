@@ -1,4 +1,4 @@
-package ptit.nttrung.movie.ui.widget;
+package ptit.nttrung.movie.util;
 
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;

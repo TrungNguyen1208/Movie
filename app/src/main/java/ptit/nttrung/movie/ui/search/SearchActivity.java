@@ -57,10 +57,18 @@ public class SearchActivity extends AppCompatActivity implements SearchView, Res
         recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
 
         setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+//        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+        setupSearch();
         setupListener();
         setupRecyclerView();
+    }
+
+    private void setupSearch() {
+//        ImageSpan imageHint = new ImageSpan(this, R.drawable.ic_search_mini);
+//        SpannableString spannableString = new SpannableString("  Search term");
+//        spannableString.setSpan(imageHint, 0, 1, Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
+//        editText.setHint(spannableString);
     }
 
     private void setupListener() {

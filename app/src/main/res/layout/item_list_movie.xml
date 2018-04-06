@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v7.widget.CardView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="4dp"
@@ -18,7 +17,7 @@
             android:layout_height="250dp"
             android:background="@color/gray300"
             android:scaleType="centerCrop"
-            android:transitionName="poster"/>
+            android:transitionName="poster" />
 
         <TextView
             android:id="@+id/tv_title"
@@ -28,7 +27,7 @@
             android:paddingLeft="16dp"
             android:paddingRight="16dp"
             android:paddingTop="8dp"
-            android:textColor="@color/materialWhiteText"/>
+            android:textColor="@color/materialWhiteText" />
 
         <TextView
             android:id="@+id/year"
@@ -39,7 +38,7 @@
             android:paddingBottom="8dp"
             android:paddingLeft="16dp"
             android:paddingRight="16dp"
-            android:textColor="@color/materialWhiteText"/>
+            android:textColor="@color/materialWhiteText" />
 
     </LinearLayout>
 
