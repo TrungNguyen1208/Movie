@@ -12,6 +12,8 @@
     <color name="gray300">#E0E0E0</color>
     <color name="gray600">#808080</color>
     <color name="gray50">#FAFAFA</color>
+    <color name="placeholder_grey">#AAADC4</color>
+    <color name="placeholder_grey_20">#33AAADC4</color>
 
     <color name="btn_context_menu_normal">#ffffff</color>
     <color name="btn_context_menu_pressed">#40000000</color>

@@ -13,7 +13,7 @@ import android.view.MenuItem;
 import ptit.nttrung.movie.R;
 import ptit.nttrung.movie.ui.base.BaseDrawerActivity;
 import ptit.nttrung.movie.ui.list.MainActivity;
-import ptit.nttrung.movie.ui.list_popular.ListPopularFragment;
+import ptit.nttrung.movie.ui.list_popular.ListPopularActivity;
 
 /**
  * Created by TrungNguyen on 4/6/2018.
@@ -58,7 +58,7 @@ public class TopRateActivity extends BaseDrawerActivity {
                         startActivity(new Intent(TopRateActivity.this, MainActivity.class));
                         TopRateActivity.this.finish();
                     case R.id.menu_popular:
-                        startActivity(new Intent(TopRateActivity.this, ListPopularFragment.class));
+                        startActivity(new Intent(TopRateActivity.this, ListPopularActivity.class));
                         TopRateActivity.this.finish();
                         break;
                     case R.id.menu_like:

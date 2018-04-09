@@ -40,7 +40,8 @@ public class TopRatePresenter extends Presenter<TopRateView> {
     }
 
     void loadMovies(int page) {
-        Subscriber<List<Media>> subscriber = new Subscriber<List<Media>>() {
+        getView().hideErrorView();
+        Subscriber<Response> sub = new Subscriber<Response>() {
             @Override
             public void onCompleted() {
                 getView().showProgress(false);
@@ -49,25 +50,20 @@ public class TopRatePresenter extends Presenter<TopRateView> {
             @Override
             public void onError(Throwable e) {
                 getView().showProgress(false);
-                getView().showError();
+                getView().showErrorView(e);
             }
 
             @Override
-            public void onNext(List<Media> movies) {
-//                getView().showMovies(movies);
+            public void onNext(Response response) {
+                getView().hideErrorView();
+                getView().showMovies(response);
             }
         };
 
-        subscription.add(getMovieObservable(page)
-                .filter(new Func1<List<Media>, Boolean>() {
-                    @Override
-                    public Boolean call(List<Media> list) {
-                        return list != null && list.size() > 0;
-                    }
-                })
+        subscription.add(getResponseObservable(page)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(subscriber));
+                .subscribe(sub));
     }
 
     void loadMoreMovies(int page) {
@@ -80,7 +76,7 @@ public class TopRatePresenter extends Presenter<TopRateView> {
             @Override
             public void onError(Throwable e) {
                 getView().showProgress(false);
-                getView().showError();
+                getView().showErrorLoadMore(e);
             }
 
             @Override

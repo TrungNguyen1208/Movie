@@ -17,6 +17,10 @@ public interface TopRateView extends BaseView {
 
     void showMoreMovies(List<Media> movies);
 
-    void showError();
+    void showErrorView(Throwable e);
+
+    void showErrorLoadMore(Throwable e);
+
+    void hideErrorView();
 }
 

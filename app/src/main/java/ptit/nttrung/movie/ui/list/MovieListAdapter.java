@@ -1,7 +1,6 @@
 package ptit.nttrung.movie.ui.list;
 
 import android.graphics.Bitmap;
-import android.os.Handler;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.graphics.Palette;
 import android.support.v7.widget.RecyclerView;
@@ -17,12 +16,15 @@ import com.bumptech.glide.load.resource.bitmap.GlideBitmapDrawable;
 import com.bumptech.glide.load.resource.drawable.GlideDrawable;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.Target;
+import com.jakewharton.rxbinding.view.RxView;
 
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import ptit.nttrung.movie.R;
 import ptit.nttrung.movie.data.model.Media;
 import ptit.nttrung.movie.util.UrlBuilder;
+import rx.functions.Action1;
 
 /**
  * Created by TrungNguyen on 11/4/2017.
@@ -57,21 +59,26 @@ public class MovieListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
             MovieViewHolder viewHolder = (MovieViewHolder) holder;
             Media media = list.get(position);
 
-//            RxView.clicks(viewHolder.itemView).throttleFirst(500, TimeUnit.MILLISECONDS).subscribe(aVoid -> {
-//                onMovieClickListener.onMovieClicked(media, viewHolder.itemView);
-//            });
-
-            viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    new Handler().postDelayed(new Runnable() {
+            RxView.clicks(viewHolder.itemView)
+                    .throttleFirst(500, TimeUnit.MILLISECONDS)
+                    .subscribe(new Action1<Void>() {
                         @Override
-                        public void run() {
+                        public void call(Void aVoid) {
                             onMovieClickListener.onMovieClicked(media, viewHolder.itemView);
                         }
-                    }, 200);
-                }
-            });
+                    });
+
+//            viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View view) {
+//                    new Handler().postDelayed(new Runnable() {
+//                        @Override
+//                        public void run() {
+//                            onMovieClickListener.onMovieClicked(media, viewHolder.itemView);
+//                        }
+//                    }, 200);
+//                }
+//            });
 
             viewHolder.title.setText(media.getTitle());
             viewHolder.year.setText(media.getReleaseDate().split("-")[0]);
