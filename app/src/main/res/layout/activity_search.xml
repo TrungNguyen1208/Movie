@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -7,9 +7,9 @@
     android:background="@color/gray50"
     tools:context=".ui.search.SearchActivity">
 
-    <LinearLayout
+    <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical">
 
         <android.support.v7.widget.Toolbar
@@ -18,7 +18,7 @@
             android:layout_height="?attr/actionBarSize"
             android:background="@color/colorPrimary"
             android:elevation="4dp"
-            app:layout_scrollFlags="scroll|enterAlways"
+            app:layout_scrollFlags="scroll|enterAlways|snap"
             app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
 
             <ptit.nttrung.movie.ui.widget.ResettableEditText
@@ -26,18 +26,24 @@
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:layout_gravity="center"
-                android:background="@drawable/border_white"
-                android:drawablePadding="8dp"
-                android:drawableLeft="@drawable/ic_search_black_24dp"
                 android:layout_marginLeft="25dp"
                 android:layout_marginRight="25dp"
+                android:background="@drawable/border_white"
+                android:drawableLeft="@drawable/ic_search_black_24dp"
+                android:drawablePadding="8dp"
                 android:hint="Search term"
-                android:paddingLeft="10dp"
                 android:inputType="text"
+                android:paddingLeft="10dp"
                 android:scaleType="center"
                 android:scrollHorizontally="true" />
 
         </android.support.v7.widget.Toolbar>
+    </android.support.design.widget.AppBarLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/recycler_view"
@@ -45,20 +51,20 @@
             android:layout_height="match_parent"
             android:clipToPadding="false"
             android:paddingBottom="8dp" />
-    </LinearLayout>
 
-    <ProgressBar
-        android:id="@+id/progress_bar"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_gravity="center"
-        android:visibility="invisible" />
+        <ProgressBar
+            android:id="@+id/progress_bar"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center"
+            android:visibility="invisible" />
 
-    <TextView
-        android:id="@+id/indication"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:textSize="20sp" />
+        <TextView
+            android:id="@+id/indication"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:textSize="20sp" />
 
-</FrameLayout>
+    </RelativeLayout>
+</android.support.design.widget.CoordinatorLayout>
