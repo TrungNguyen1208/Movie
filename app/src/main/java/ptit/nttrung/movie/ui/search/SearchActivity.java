@@ -17,6 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
+import jp.wasabeef.recyclerview.animators.SlideInUpAnimator;
 import ptit.nttrung.movie.R;
 import ptit.nttrung.movie.data.model.Media;
 import ptit.nttrung.movie.ui.detail.DetailActivity;
@@ -59,21 +60,15 @@ public class SearchActivity extends AppCompatActivity implements SearchView, Res
         setSupportActionBar(toolbar);
 //        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        setupSearch();
         setupListener();
         setupRecyclerView();
     }
 
-    private void setupSearch() {
-//        ImageSpan imageHint = new ImageSpan(this, R.drawable.ic_search_mini);
-//        SpannableString spannableString = new SpannableString("  Search term");
-//        spannableString.setSpan(imageHint, 0, 1, Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
-//        editText.setHint(spannableString);
-    }
-
     private void setupListener() {
+        editText.setListener(this);
+
         subscription = RxTextView.textChanges(editText)
-                .debounce(1, TimeUnit.SECONDS)
+                .debounce(500, TimeUnit.MILLISECONDS)
                 .switchMap(new Func1<CharSequence, Observable<? extends CharSequence>>() {
                     @Override
                     public Observable<? extends CharSequence> call(CharSequence value) {
@@ -99,6 +94,7 @@ public class SearchActivity extends AppCompatActivity implements SearchView, Res
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         adapter = new SearchAdapter(list);
         adapter.setListener(this);
+        recyclerView.setItemAnimator(new SlideInUpAnimator());
         recyclerView.setAdapter(adapter);
     }
 

@@ -26,6 +26,7 @@ import ptit.nttrung.movie.R;
 import ptit.nttrung.movie.data.model.Media;
 import ptit.nttrung.movie.data.model.Section;
 import ptit.nttrung.movie.util.UrlBuilder;
+import rx.functions.Action1;
 
 /**
  * Created by TrungNguyen on 11/5/2017.
@@ -97,12 +98,21 @@ public class SearchAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
                     })
                     .into(viewHolder.poster);
             if (listener != null)
-                RxView.clicks(viewHolder.itemView).subscribe(aVoid -> listener.onMovieClicked(viewHolder.itemView, movie));
+                RxView.clicks(viewHolder.itemView).subscribe(new Action1<Void>() {
+                    @Override
+                    public void call(Void aVoid) {
+                        listener.onMovieClicked(viewHolder.itemView, movie);
+                    }
+                });
 
         } else if (holder instanceof SearchCastViewHolder) {
             Media person = (Media) object;
             SearchCastViewHolder viewHolder = (SearchCastViewHolder) holder;
-            viewHolder.divider.setVisibility(position == list.size() - 1 ? View.VISIBLE : View.GONE);
+            if (position != list.size() - 1) {
+                viewHolder.divider.setVisibility(View.GONE);
+            } else {
+                viewHolder.divider.setVisibility(View.VISIBLE);
+            }
             viewHolder.name.setText(person.getName());
             Glide.with(holder.itemView.getContext()).load(UrlBuilder.getCastUrl(person.getProfilePath()))
                     .asBitmap()

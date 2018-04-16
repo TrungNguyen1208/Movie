@@ -9,11 +9,11 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
 import android.view.Gravity;
 import android.view.MenuItem;
-import android.widget.Toast;
 
 import ptit.nttrung.movie.R;
 import ptit.nttrung.movie.ui.base.BaseDrawerActivity;
 import ptit.nttrung.movie.ui.list.MainActivity;
+import ptit.nttrung.movie.ui.top_rate.TopRateActivity;
 
 /**
  * Created by TrungNguyen on 1/18/2018.
@@ -60,7 +60,8 @@ public class ListPopularActivity extends BaseDrawerActivity {
                         drawerLayout.closeDrawer(Gravity.LEFT, true);
                         break;
                     case R.id.menu_like:
-                        Toast.makeText(ListPopularActivity.this, "Update later", Toast.LENGTH_SHORT).show();
+                        startActivity(new Intent(ListPopularActivity.this, TopRateActivity.class));
+                        ListPopularActivity.this.finish();
                         break;
                     default:
                         break;

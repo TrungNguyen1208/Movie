@@ -5,6 +5,5 @@ package ptit.nttrung.movie.util;
  */
 
 public interface PaginationAdapterCallback {
-
     void retryPageLoad();
 }

@@ -30,9 +30,15 @@ public class SearchPresenter extends Presenter<SearchView> {
         client = ApiUtils.getApi();
     }
 
+    //Tìm kiếm các items bởi đoạn query
+    // Ví dụ người dùng nhập chữ 'x' sau đó đến chữ 'y'.
+    // Thì phần query sẽ là 'xy' và ta sẽ không cần quan tâm đến kết quả khi câu query là chữ 'x' nữa.
+    // Vì thế hãy thoải mái mà chọn switchMap thôi!
     void search(String query) {
         if (subscription != null) subscription.unsubscribe();
         subscription = searchObservable(query)
+                // khi một phần tử mới được emit, thì nó sẽ huỷ(unsubcribe)
+                // Observable được tạo ra trước đó và sẽ chạy Observable mới.
                 .switchMap(new Func1<Response, Observable<? extends Media>>() {
                     @Override
                     public Observable<? extends Media> call(Response response) {
@@ -46,9 +52,14 @@ public class SearchPresenter extends Presenter<SearchView> {
                     }
                 })
                 .toList()
+                //Operator flatMap sẽ không quan tâm đến thứ tự của các phần tử.
+                // Nó sẽ tạo một Observable mới cho mỗi phần tử và không liên quan gì đến nhau.
+                // Có phần tử sẽ emit nhanh, có phần tử emit chậm bởi vì trước đó mình đã tạo một đoạn delay ngẫu nhiên cho các phần tử.
                 .flatMap(new Func1<List<Media>, Observable<? extends List<Object>>>() {
                     @Override
                     public Observable<? extends List<Object>> call(List<Media> medias) {
+                        //Hàm zip() trong RxJava giúp bạn thực hiện đồng thời nhiều Observable
+                        // và gộp các kết quả của các Observable lại cùng trong 1 kết quả trả về.
                         return Observable.zip(
                                 SearchPresenter.this.extractSearchResult(medias, "person"),
                                 SearchPresenter.this.extractSearchResult(medias, "movie"),
